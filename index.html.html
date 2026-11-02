@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Afazeres do Condomínio</title>
+<style>
+:root{--bg:#f5f6f8;--sf:#fff;--tx:#1d2330;--mu:#667085;--bd:#dfe3ea;--ac:#2557d6;--acx:#fff;
+--alta:#d92d20;--media:#d97706;--baixa:#16a34a;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12151c;--sf:#1b202b;--tx:#e8ebf2;--mu:#98a2b3;--bd:#2d3444;--ac:#6e96ff;--acx:#0b1020;--alta:#f97066;--media:#fbb040;--baixa:#4ade80;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12151c;--sf:#1b202b;--tx:#e8ebf2;--mu:#98a2b3;--bd:#2d3444;--ac:#6e96ff;--acx:#0b1020;--alta:#f97066;--media:#fbb040;--baixa:#4ade80;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{padding:16px 16px 0;max-width:960px;margin:0 auto}
+h1{font-size:20px;margin:0 0 2px}
+.sub{color:var(--mu);font-size:13px;margin:0 0 12px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+button,select,input,textarea{font:inherit;color:var(--tx)}
+.btn{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:7px 12px;cursor:pointer}
+.btn:hover{border-color:var(--ac)}
+.btn.pri{background:var(--ac);color:var(--acx);border-color:var(--ac);font-weight:600}
+.btn.on{background:var(--alta);color:#fff;border-color:var(--alta)}
+.btn.sm{padding:3px 8px;font-size:13px}
+.who{display:flex;gap:6px;align-items:center;margin-left:auto;font-size:13px;color:var(--mu)}
+.who input{width:130px}
+input,select,textarea{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:7px 9px;width:100%}
+.who input{width:130px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--bd)}
+.tab{background:none;border:0;border-bottom:3px solid transparent;padding:8px 14px;cursor:pointer;color:var(--mu);font-weight:600}
+.tab.on{color:var(--ac);border-color:var(--ac)}
+main{max-width:960px;margin:0 auto;padding:14px 16px 40px}
+.grp{margin-bottom:22px}
+.gh{display:flex;align-items:center;gap:8px;font-weight:700;margin-bottom:8px}
+.dot{width:12px;height:12px;border-radius:50%}
+.cnt{color:var(--mu);font-weight:400;font-size:13px}
+.card{background:var(--sf);border:1px solid var(--bd);border-left:5px solid var(--c);border-radius:10px;padding:10px 12px;margin-bottom:8px;display:grid;grid-template-columns:34px 1fr auto;gap:10px}
+.num{font-weight:700;color:var(--c);font-size:18px}
+.t{font-weight:600}
+.meta{color:var(--mu);font-size:13px;display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:3px}
+.obs{font-size:13px;margin-top:5px;white-space:pre-wrap}
+.act{display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+.act div{display:flex;gap:4px}
+.badge{display:inline-block;border-radius:99px;padding:1px 9px;font-size:12px;font-weight:600;border:1px solid currentColor;margin-left:6px;vertical-align:middle}
+.s0{color:var(--mu)}.s1{color:var(--ac)}.s2{color:var(--baixa)}.s3{color:var(--media)}.s4{color:var(--alta)}
+.empty{color:var(--mu);font-size:14px;padding:6px 2px}
+dialog{background:var(--sf);color:var(--tx);border:1px solid var(--bd);border-radius:12px;width:min(520px,94vw);padding:16px}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.f label{font-size:12px;color:var(--mu);display:block;margin-bottom:2px}
+.f .w{grid-column:1/-1}
+.ov{overflow-x:auto}
+.flt{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;margin-bottom:8px}.flt label{font-size:12px;color:var(--mu);display:block}.flt select,.flt input{width:auto;max-width:170px}
+.fs{color:var(--mu);font-size:13px;margin:0 0 10px}
+.det{grid-column:1/-1;border-top:1px solid var(--bd);padding-top:8px}.det table{min-width:0}.addag{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.addag select,.addag input{width:auto;max-width:230px}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:780px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--bd);vertical-align:top}
+th{color:var(--mu);font-weight:600}
+#slides{position:fixed;inset:0;background:var(--bg);z-index:50;display:none;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+#slides.on{display:flex}
+.sl-body{flex:1;overflow:auto;padding:28px min(6vw,60px)}
+.sl-body h2{font-size:clamp(22px,4vw,34px);margin:0 0 16px}
+.kpis{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.kpi{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:10px 16px;min-width:110px}
+.kpi b{font-size:26px;display:block}
+.sl-nav{display:flex;gap:8px;align-items:center;padding:10px 16px;border-top:1px solid var(--bd);background:var(--sf)}
+.sl-nav span{margin:0 auto;color:var(--mu);font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏢 Afazeres do Condomínio</h1>
+  <p class="sub">Obras, melhorias e segurança · protótipo</p>
+  <div class="bar">
+    <button class="btn pri" onclick="openForm()">+ Novo item</button>
+    <button class="btn" id="fAlta" onclick="toggleAlta()">Somente prioridade Alta</button>
+    <button class="btn" onclick="openSlides()">📊 Montar slides</button>
+    <div class="who">Seu nome: <input id="autor" placeholder="Ex.: Maria (síndica)" oninput="saveAutor()"></div>
+  </div>
+  <div class="flt" id="flt">
+    <div><label>Status</label><select id="f_s" onchange="render()"></select></div>
+    <div><label>Responsável</label><select id="f_r" onchange="render()"></select></div>
+    <div><label>Período por</label><select id="f_k" onchange="render()"><option value="incl">Data de inclusão</option><option value="entrega">Data de entrega</option></select></div>
+    <div><label>De</label><input type="date" id="f_d" onchange="render()"></div>
+    <div><label>Até</label><input type="date" id="f_e" onchange="render()"></div>
+    <button class="btn" onclick="clearF()">Limpar filtros</button>
+    <button class="btn pri" onclick="openSlides(true)">📊 Slides dos filtrados</button>
+  </div>
+  <p class="fs" id="fsum"></p>
+  <div class="tabs">
+    <button class="tab on" id="t1" onclick="tab(1)">Afazeres</button>
+    <button class="tab" id="t3" onclick="tab(3)">Fornecedores</button>
+    <button class="tab" id="t2" onclick="tab(2)">Histórico de alterações</button>
+  </div>
+</header>
+<main>
+  <section id="v1"></section>
+  <section id="v3" style="display:none">
+    <div class="f" style="margin-bottom:12px;background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:12px">
+      <div><label>Empresa</label><input id="f_nm"></div>
+      <div><label>Especialidade</label><input id="f_es" placeholder="Ex.: serralheria, CFTV"></div>
+      <div><label>Representante</label><input id="f_rp"></div>
+      <div><label>Celular</label><input id="f_ce" type="tel" placeholder="(11) 90000-0000"></div>
+      <div><label>Nota (1 a 5)</label><select id="f_nt"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div>
+      <div style="align-self:end;display:flex;gap:8px"><button class="btn pri" id="fbtn" onclick="saveForn()">Cadastrar fornecedor</button><button class="btn" onclick="resetForn()">Limpar</button></div>
+      <p id="ferr" class="w" style="color:var(--alta);font-size:13px;margin:0"></p>
+    </div>
+    <div class="ov" id="fl"></div>
+  </section>
+  <section id="v2" style="display:none"></section>
+</main>
+
+<dialog id="dlg">
+  <h3 id="dt" style="margin-top:0">Novo item</h3>
+  <div class="f">
+    <div class="w"><label>Item / descrição</label><input id="i_t"></div>
+    <div><label>Prioridade</label><select id="i_p"><option>Alta</option><option>Média</option><option>Baixa</option></select></div>
+    <div><label>Status</label><select id="i_s" onchange="if(this.value==='Entregue'&&!$('i_g').value)$('i_g').value=today()"></select></div>
+    <div><label>Responsável</label><input id="i_r"></div>
+    <div><label>Orçamento (R$)</label><input type="number" min="0" step="0.01" id="i_b"></div>
+    <div><label>Custo final (R$)</label><input type="number" min="0" step="0.01" id="i_c"></div>
+    <div><label>Data da entrega</label><input type="date" id="i_g"></div>
+    <div class="w"><label>Observações</label><textarea id="i_o" rows="3"></textarea></div>
+  </div>
+  <p id="err" style="color:var(--alta);font-size:13px;margin:8px 0 0"></p>
+  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+    <button class="btn" onclick="dlg.close()">Cancelar</button>
+    <button class="btn pri" onclick="saveItem()">Salvar</button>
+  </div>
+</dialog>
+
+<div id="slides">
+  <div class="sl-body" id="slb"></div>
+  <div class="sl-nav">
+    <button class="btn" onclick="go(-1)">← Anterior</button>
+    <span id="slc"></span>
+    <button class="btn" onclick="go(1)">Próximo →</button>
+    <button class="btn" onclick="closeSlides()">Fechar</button>
+  </div>
+</div>
+
+<script>
+const PR=['Alta','Média','Baixa'], CL={Alta:'var(--alta)','Média':'var(--media)',Baixa:'var(--baixa)'};
+const ST=['A iniciar','Em andamento','Entregue','Despriorizado','Impedido'];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const today=()=>new Date().toLocaleDateString('en-CA');
+const fd=d=>d?d.split('-').reverse().join('/'):'—';
+const R=n=>n==null||n===''?'—':Number(n).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const num=x=>x===''?null:Number(x);
+function filt(i){
+  if(onlyAlta&&i.prio!=='Alta')return false;
+  if($('f_s').value&&i.status!==$('f_s').value)return false;
+  if($('f_r').value&&i.resp!==$('f_r').value)return false;
+  const a=$('f_d').value,b=$('f_e').value,d=i[$('f_k').value]||'';
+  if(a||b){if(!d||(a&&d<a)||(b&&d>b))return false}
+  return true}
+function fillF(){
+  const s=$('f_s');if(!s.options.length)s.innerHTML='<option value="">Todos</option>'+ST.map(x=>`<option>${x}</option>`).join('');
+  const r=$('f_r'),cur=r.value,rs=[...new Set(items.map(i=>i.resp).filter(Boolean))].sort();
+  r.innerHTML='<option value="">Todos</option>'+rs.map(x=>`<option>${esc(x)}</option>`).join('');r.value=cur}
+function clearF(){['f_s','f_r','f_d','f_e'].forEach(id=>$(id).value='');$('f_k').value='incl';onlyAlta=false;render()}
+function fdesc(){
+  const p=[];if(onlyAlta)p.push('Prioridade Alta');
+  if($('f_s').value)p.push('Status: '+$('f_s').value);if($('f_r').value)p.push('Resp.: '+$('f_r').value);
+  const a=$('f_d').value,b=$('f_e').value;
+  if(a||b)p.push(($('f_k').value==='incl'?'Incluídos':'Entregues')+(a?' de '+fd(a):'')+(b?' até '+fd(b):''));
+  return p.join(' · ')||'Sem filtros'}
+let items=[],forns=[],fe=null,opened=new Set(),log=[],onlyAlta=false,editId=null,sl=[],si=0;
+
+function load(){
+  try{items=JSON.parse(localStorage.getItem('cd_items')||'null')||[];log=JSON.parse(localStorage.getItem('cd_log')||'null')||[];$('autor').value=localStorage.getItem('cd_autor')||'';forns=JSON.parse(localStorage.getItem('cd_forns')||'null')||[]}catch(e){}
+  if(!items.length){
+    const d=today();
+    items=[
+      {id:1,titulo:'Instalar corrimão na rampa de acesso',prio:'Alta',resp:'Carlos (subsíndico)',obs:'Exigência de acessibilidade. Orçamento aprovado em assembleia.',incl:d,agenda:'',status:'Em andamento',ordem:1},
+      {id:2,titulo:'Trocar câmeras do CFTV e instalar novas na garagem',prio:'Alta',resp:'Maria (síndica)',obs:'3 orçamentos recebidos.',incl:d,agenda:'',status:'A iniciar',ordem:2},
+      {id:3,titulo:'Pintura do hall de entrada',prio:'Média',resp:'Ana (conselho)',obs:'',incl:d,agenda:'',status:'Impedido',ordem:1},
+      {id:4,titulo:'Reforma do playground',prio:'Baixa',resp:'João',obs:'Aguardando caixa do próximo semestre.',incl:d,agenda:'',status:'Despriorizado',ordem:1}];
+    addLog('Sistema','Dados de exemplo carregados','—','4 itens de demonstração');
+  }
+  if(!forns.length){forns=[{id:1,nome:'Serralheria Ferro Forte',esp:'Serralheria / corrimãos',nota:4,cel:'(11) 91234-5678',rep:'Roberto'},{id:2,nome:'SegTech Sistemas',esp:'CFTV e segurança',nota:5,cel:'(11) 98765-4321',rep:'Paula'}];addLog('Sistema','Fornecedores de exemplo','—','2 fornecedores de demonstração')}
+  items.forEach(i=>{if(!i.agendas){i.agendas=i.agenda?[{forn:null,data:i.agenda}]:[];delete i.agenda}});persist();
+}
+function persist(){try{localStorage.setItem('cd_items',JSON.stringify(items));localStorage.setItem('cd_log',JSON.stringify(log));localStorage.setItem('cd_forns',JSON.stringify(forns))}catch(e){}}
+function saveAutor(){try{localStorage.setItem('cd_autor',$('autor').value)}catch(e){}}
+function who(){return $('autor').value.trim()||'Anônimo'}
+function addLog(autor,acao,item,det){log.unshift({ts:new Date().toISOString(),autor,acao,item,det});persist()}
+function group(p){return items.filter(i=>i.prio===p).sort((a,b)=>a.ordem-b.ordem)}
+
+function render(){
+  fillF();let h='';
+  for(const p of PR){
+    if(onlyAlta&&p!=='Alta')continue;
+    const full=group(p),g=full.filter(filt);
+    h+=`<div class="grp"><div class="gh"><span class="dot" style="background:${CL[p]}"></span>Prioridade ${p} <span class="cnt">${g.length} ${g.length===1?'item':'itens'}</span></div>`;
+    if(!g.length)h+='<div class="empty">Nenhum item neste grupo.</div>';
+    g.forEach(i=>{const k=full.indexOf(i);
+      h+=`<div class="card" style="--c:${CL[p]}"><div class="num">${k+1}º</div><div>
+      <div class="t">${esc(i.titulo)}<span class="badge s${ST.indexOf(i.status)}">${i.status}</span></div>
+      <div class="meta"><span>👤 ${esc(i.resp)||'Sem responsável'}</span><span>Incluído em ${fd(i.incl)}</span><span>🗓 Próx. agendamento: ${nextAg(i)}</span><span>✅ Entrega: ${fd(i.entrega)}</span><span>💰 Orçamento: ${R(i.orcamento)}</span><span>Custo final: <b>${R(i.custo)}</b></span></div>
+      ${i.obs?`<div class="obs">${esc(i.obs)}</div>`:''}</div>
+      <div class="act"><div><button class="btn sm" title="Subir na ordem" onclick="mv(${i.id},-1)" ${k===0?'disabled':''}>↑</button><button class="btn sm" title="Descer na ordem" onclick="mv(${i.id},1)" ${k===full.length-1?'disabled':''}>↓</button></div>
+      <button class="btn sm" onclick="openForm(${i.id})">Editar</button><button class="btn sm" onclick="tg(${i.id})">Detalhes ${opened.has(i.id)?'▴':'▾'}</button></div>${opened.has(i.id)?detail(i):''}</div>`;
+    });
+    h+='</div>';
+  }
+  $('v1').innerHTML=h;
+  const fl=items.filter(filt),sm=k=>fl.reduce((t,i)=>t+(Number(i[k])||0),0);
+  $('fsum').textContent=`${fl.length} de ${items.length} itens · Orçamento: ${R(sm('orcamento'))} · Custo final: ${R(sm('custo'))} · ${fdesc()}`;
+  $('fAlta').classList.toggle('on',onlyAlta);
+  $('fAlta').textContent=onlyAlta?'✓ Mostrando só prioridade Alta':'Somente prioridade Alta';
+  let l=`<p class="sub">${log.length} registro(s). Todas as inclusões e alterações ficam gravadas aqui.</p><div class="ov"><table><tr><th>Data/hora</th><th>Quem</th><th>Ação</th><th>Item</th><th>Detalhes</th></tr>`;
+  for(const e of log)l+=`<tr><td>${new Date(e.ts).toLocaleString('pt-BR')}</td><td>${esc(e.autor)}</td><td>${esc(e.acao)}</td><td>${esc(e.item)}</td><td>${esc(e.det)}</td></tr>`;
+  $('v2').innerHTML=l+'</table></div>';renderF();
+}
+function tab(n){$('v3').style.display=n==3?'':'none';$('t3').classList.toggle('on',n==3);$('flt').style.display=$('fsum').style.display=n==1?'':'none';$('v1').style.display=n==1?'':'none';$('v2').style.display=n==2?'':'none';$('t1').classList.toggle('on',n==1);$('t2').classList.toggle('on',n==2)}
+function toggleAlta(){onlyAlta=!onlyAlta;tab(1);render()}
+
+function mv(id,d){
+  const it=items.find(i=>i.id===id),g=group(it.prio),k=g.indexOf(it),o=g[k+d];
+  if(!o)return;
+  [it.ordem,o.ordem]=[o.ordem,it.ordem];
+  addLog(who(),'Ordem alterada',it.titulo,`Prioridade ${it.prio}: ${k+1}º → ${k+1+d}º`);
+  render();
+}
+function openForm(id){
+  editId=id||null;$('err').textContent='';
+  $('i_s').innerHTML=ST.map(s=>`<option>${s}</option>`).join('');
+  const i=id?items.find(x=>x.id===id):{titulo:'',prio:'Alta',resp:'',obs:'',agenda:'',status:'A iniciar'};
+  $('dt').textContent=id?'Editar item':'Novo item';
+  $('i_t').value=i.titulo;$('i_p').value=i.prio;$('i_s').value=i.status;$('i_r').value=i.resp;$('i_b').value=i.orcamento??'';$('i_c').value=i.custo??'';$('i_g').value=i.entrega||'';$('i_o').value=i.obs;
+  dlg.showModal();
+}
+function saveItem(){
+  const v={titulo:$('i_t').value.trim(),prio:$('i_p').value,status:$('i_s').value,resp:$('i_r').value.trim(),obs:$('i_o').value.trim(),orcamento:num($('i_b').value),custo:num($('i_c').value),entrega:$('i_g').value};
+  if(!v.titulo){$('err').textContent='Informe a descrição do item.';return}
+  if(v.status==='Entregue'&&!v.entrega)v.entrega=today();
+  if(!editId){
+    const n=group(v.prio).length+1;
+    const it={id:Date.now(),...v,agendas:[],incl:today(),ordem:n};
+    items.push(it);
+    addLog(who(),'Item incluído',v.titulo,`Prioridade ${v.prio} (${n}º) · ${v.status} · Resp.: ${v.resp||'—'} · Orçamento: ${R(v.orcamento)}${v.obs?' · Obs.: '+v.obs:''}`);
+  }else{
+    const it=items.find(x=>x.id===editId),L={titulo:'Descrição',prio:'Prioridade',status:'Status',resp:'Responsável',obs:'Observações',orcamento:'Orçamento',custo:'Custo final',entrega:'Data de entrega'},ch=[];
+    const fm=(k,x)=>(k==='agenda'||k==='entrega')?fd(x):(k==='orcamento'||k==='custo')?R(x):(x||'—');
+    for(const k in L)if((it[k]??'')!==(v[k]??'')){
+      const a=fm(k,it[k]),b=fm(k,v[k]);
+      ch.push(`${L[k]}: “${a}” → “${b}”`);
+    }
+    if(!ch.length){dlg.close();return}
+    if(v.prio!==it.prio)it.ordem=group(v.prio).length+1;
+    Object.assign(it,v);
+    addLog(who(),'Item alterado',it.titulo,ch.join(' | '));
+  }
+  dlg.close();render();
+}
+
+function openSlides(uf){
+  const base=uf?items.filter(filt):items,gp=p=>base.filter(i=>i.prio===p).sort((a,b)=>a.ordem-b.ordem);
+  const tot=k=>base.reduce((t,i)=>t+(Number(i[k])||0),0);
+  const rows=g=>g.map(i=>`<tr><td>${group(i.prio).indexOf(i)+1}º</td><td><b>${esc(i.titulo)}</b>${i.obs?`<br><span style="color:var(--mu)">${esc(i.obs)}</span>`:''}</td><td>${esc(i.resp)||'—'}</td><td class="s${ST.indexOf(i.status)}"><b>${i.status}</b></td><td>${nextAg(i)}</td><td>${fd(i.entrega)}</td><td>${R(i.orcamento)}</td><td>${R(i.custo)}</td></tr>`).join('');
+  const kp=(v,t,c)=>`<div class="kpi"${c?` style="border-left:5px solid ${c}"`:''}><b>${v}</b>${t}</div>`;
+  sl=[`<h2>${uf?'Afazeres filtrados':'Resumo de afazeres do condomínio'}</h2><p style="color:var(--mu)">Posição em ${fd(today())} · ${base.length} itens${uf?' · Filtro: '+esc(fdesc()):''}</p><div class="kpis">${PR.map(p=>kp(gp(p).length,'Prioridade '+p,CL[p])).join('')}</div><div class="kpis">${ST.map((s,k)=>`<div class="kpi"><b class="s${k}">${base.filter(i=>i.status===s).length}</b>${s}</div>`).join('')}</div><div class="kpis">${kp(R(tot('orcamento')),'Orçamento total')}${kp(R(tot('custo')),'Custo final total')}</div>`];
+  for(const p of PR){
+    const g=gp(p);
+    if(!g.length){if(!uf)sl.push(`<h2 style="color:${CL[p]}">Prioridade ${p}</h2><p>Nenhum item.</p>`);continue}
+    for(let n=0;n<g.length;n+=5)sl.push(`<h2 style="color:${CL[p]}">Prioridade ${p}${g.length>5?` (${n/5+1}/${Math.ceil(g.length/5)})`:''}</h2><div class="ov"><table><tr><th>Ordem</th><th>Item</th><th>Responsável</th><th>Status</th><th>Agendamento</th><th>Entrega</th><th>Orçamento</th><th>Custo final</th></tr>${rows(g.slice(n,n+5))}</table></div>`);
+  }
+  sl.push(`<h2>Total do custo final</h2><div class="kpis">${kp(base.length,'itens'+(uf?' filtrados':''))}${kp(R(tot('orcamento')),'Orçamento total')}${kp('<span class="s2">'+R(tot('custo'))+'</span>','Custo final total')}${kp(R(tot('custo')-tot('orcamento')),'Custo final − orçamento')}</div>${uf?`<p style="color:var(--mu);margin-top:16px">Filtro: ${esc(fdesc())}</p>`:''}`);
+  si=0;$('slides').classList.add('on');showSlide();
+  addLog(who(),'Slides gerados','—',`${sl.length} slides`+(uf?' · Filtro: '+fdesc():''));render();
+}
+function showSlide(){$('slb').innerHTML=sl[si];$('slc').textContent=`Slide ${si+1} de ${sl.length}`}
+function go(d){si=Math.min(sl.length-1,Math.max(0,si+d));showSlide()}
+function closeSlides(){$('slides').classList.remove('on')}
+document.addEventListener('keydown',e=>{if(!$('slides').classList.contains('on'))return;if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1);if(e.key==='Escape')closeSlides()});
+const fname=id=>forns.find(f=>f.id===id)?.nome||'Fornecedor não informado';
+function nextAg(i){
+  const a=[...(i.agendas||[])].sort((x,y)=>x.data<y.data?-1:1);
+  const n=a.find(x=>x.data>=today())||a[a.length-1];
+  return n?`${fd(n.data)} (${esc(fname(n.forn))})`:'—'}
+function detail(i){
+  const ag=(i.agendas||[]).map((a,k)=>({...a,k})).sort((x,y)=>x.data<y.data?-1:1);
+  let h='<div class="det"><b>Agendamentos com fornecedores</b><div class="ov"><table><tr><th>Fornecedor</th><th>Especialidade</th><th>Data agendada</th><th></th></tr>';
+  h+=ag.map(a=>`<tr><td>${esc(fname(a.forn))}</td><td>${esc(forns.find(f=>f.id===a.forn)?.esp)||'—'}</td><td>${fd(a.data)}</td><td><button class="btn sm" onclick="delAg(${i.id},${a.k})">Remover</button></td></tr>`).join('')||'<tr><td colspan="4" class="empty">Nenhum agendamento.</td></tr>';
+  h+='</table></div>';
+  h+=forns.length?`<div class="addag"><select id="ag_f${i.id}">${forns.map(f=>`<option value="${f.id}">${esc(f.nome)}${f.esp?' — '+esc(f.esp):''}</option>`).join('')}</select><input type="date" id="ag_d${i.id}"><button class="btn pri sm" onclick="addAg(${i.id})">+ Adicionar agendamento</button></div>`:'<p class="fs">Cadastre fornecedores na aba “Fornecedores” para poder agendar.</p>';
+  return h+'</div>'}
+function tg(id){opened.has(id)?opened.delete(id):opened.add(id);render()}
+function addAg(id){
+  const it=items.find(x=>x.id===id),fo=Number($('ag_f'+id).value),d=$('ag_d'+id).value;
+  if(!d){$('ag_d'+id).focus();return}
+  (it.agendas=it.agendas||[]).push({forn:fo,data:d});
+  addLog(who(),'Agendamento incluído',it.titulo,`${fname(fo)} em ${fd(d)}`);render()}
+function delAg(id,k){
+  const it=items.find(x=>x.id===id),a=it.agendas.splice(k,1)[0];
+  addLog(who(),'Agendamento removido',it.titulo,`${fname(a.forn)} em ${fd(a.data)}`);render()}
+function renderF(){
+  let h='<table><tr><th>Empresa</th><th>Especialidade</th><th>Nota</th><th>Celular</th><th>Representante</th><th>Agend.</th><th></th></tr>';
+  forns.forEach(f=>{const n=items.reduce((t,i)=>t+(i.agendas||[]).filter(a=>a.forn===f.id).length,0);
+    h+=`<tr><td><b>${esc(f.nome)}</b></td><td>${esc(f.esp)||'—'}</td><td>${'★'.repeat(f.nota)}${'☆'.repeat(5-f.nota)} ${f.nota}</td><td>${esc(f.cel)||'—'}</td><td>${esc(f.rep)||'—'}</td><td>${n}</td><td><button class="btn sm" onclick="editForn(${f.id})">Editar</button> <button class="btn sm" onclick="delForn(${f.id})">Excluir</button></td></tr>`});
+  if(!forns.length)h+='<tr><td colspan="7" class="empty">Nenhum fornecedor cadastrado.</td></tr>';
+  $('fl').innerHTML=h+'</table>'}
+function resetForn(){fe=null;['f_nm','f_es','f_rp','f_ce'].forEach(id=>$(id).value='');$('f_nt').value='5';$('ferr').textContent='';$('fbtn').textContent='Cadastrar fornecedor'}
+function editForn(id){
+  const f=forns.find(x=>x.id===id);fe=id;
+  $('f_nm').value=f.nome;$('f_es').value=f.esp;$('f_rp').value=f.rep;$('f_ce').value=f.cel;$('f_nt').value=f.nota;
+  $('fbtn').textContent='Salvar alterações';$('ferr').textContent='';scrollTo(0,0)}
+function saveForn(){
+  const v={nome:$('f_nm').value.trim(),esp:$('f_es').value.trim(),rep:$('f_rp').value.trim(),cel:$('f_ce').value.trim(),nota:Number($('f_nt').value)};
+  if(!v.nome){$('ferr').textContent='Informe o nome da empresa.';return}
+  if(!fe){forns.push({id:Date.now(),...v});addLog(who(),'Fornecedor cadastrado',v.nome,`${v.esp||'—'} · Nota ${v.nota} · Rep.: ${v.rep||'—'} · ${v.cel||'—'}`)}
+  else{
+    const f=forns.find(x=>x.id===fe),L={nome:'Empresa',esp:'Especialidade',rep:'Representante',cel:'Celular',nota:'Nota'},ch=[];
+    for(const k in L)if(f[k]!==v[k])ch.push(`${L[k]}: “${f[k]||'—'}” → “${v[k]||'—'}”`);
+    Object.assign(f,v);if(ch.length)addLog(who(),'Fornecedor alterado',v.nome,ch.join(' | '));
+  }
+  resetForn();render()}
+function delForn(id){
+  const f=forns.find(x=>x.id===id),n=items.reduce((t,i)=>t+(i.agendas||[]).filter(a=>a.forn===id).length,0);
+  if(n){$('ferr').textContent=`“${f.nome}” tem ${n} agendamento(s) e não pode ser excluído.`;return}
+  forns=forns.filter(x=>x.id!==id);addLog(who(),'Fornecedor excluído',f.nome,'—');render()}
+const dlg=$('dlg');
+load();render();
+</script>
+</body>
+</html>
